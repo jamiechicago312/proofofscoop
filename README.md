@@ -11,6 +11,8 @@ landing page, the Rainbow Cone design system, local tooling, CI, and setup
 documentation. Authentication, database, shops, reviews, and verification are
 tracked in the linked GitHub issues and are not implemented yet.
 
+For the Issue #2 Privy account shell, set `NEXT_PUBLIC_PRIVY_APP_ID` in `.env.local`, enable email login and Ethereum embedded wallets in Privy, and add your local/deployed origins before testing sign-in.
+
 ## Local development
 
 1. Use Node.js 22 or later.

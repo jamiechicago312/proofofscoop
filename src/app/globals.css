@@ -38,6 +38,10 @@ a { color: inherit; }
 
 .wordmark { font-weight: 800; text-decoration: none; letter-spacing: -0.04em; font-size: 1.35rem; }
 .nav-link { font-weight: 700; }
+.nav-actions, .auth-actions { display: flex; align-items: center; gap: 1rem; }
+.nav-button, .text-button { border: 0; background: transparent; color: inherit; cursor: pointer; font: inherit; font-weight: 800; padding: 0; }
+.nav-button { border-radius: 999px; background: var(--rc-chocolate); color: white; padding: 0.6rem 0.9rem; }
+.setup-note { color: var(--ink-muted); font-size: 0.85rem; }
 
 .hero { max-width: 72rem; padding-top: clamp(4rem, 11vw, 9rem); padding-bottom: clamp(4rem, 9vw, 7rem); }
 .eyebrow { color: var(--rc-brand-pink); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
@@ -70,6 +74,14 @@ h2 { max-width: 24ch; font-family: Georgia, serif; font-size: clamp(2.2rem, 5vw,
 .steps h3 { margin: 2.5rem 0 0.5rem; font-size: 1.5rem; }
 .steps p { margin-bottom: 0; line-height: 1.5; }
 footer { padding-block: 2rem; color: white; background: var(--rc-chocolate); font-size: 0.95rem; }
+.account-page { min-height: 100vh; }
+.account-card { max-width: 48rem; margin: clamp(2rem, 8vw, 7rem) auto; padding: clamp(1.5rem, 5vw, 3rem); border-radius: 1.5rem; background: white; box-shadow: 0 1rem 3rem rgb(61 35 20 / 12%); }
+.account-card h1 { font-size: clamp(2.5rem, 7vw, 5rem); }
+.account-card dl { display: grid; gap: 1rem; margin: 2rem 0; }
+.account-card dl div { padding: 1rem; border-radius: 0.75rem; background: var(--rc-palmer-house); }
+.account-card dt { font-weight: 800; }
+.account-card dd { margin: 0.4rem 0 0; overflow-wrap: anywhere; font-family: monospace; }
+.account-note { color: var(--ink-muted); line-height: 1.5; }
 
 @media (max-width: 700px) {
   .layers, .steps { grid-template-columns: 1fr; }
