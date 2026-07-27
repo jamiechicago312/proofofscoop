@@ -19,6 +19,10 @@ on-chain items are pending.
   Vercel deployment URLs to the allowed-origin configuration. Share the app ID
   and server-side app secret through the deployment secret manager—never commit
   them to the repository.
+- [ ] **Privy verification key:** copy the app's JWT verification JWK from the
+  Privy dashboard and set it as `PRIVY_JWT_VERIFICATION_KEY` locally and in
+  Vercel. This lets the server verify access-token signatures without trusting
+  a browser-provided identity.
 - [ ] **Database:** create a Postgres database (recommended: Neon or
   Supabase), then add its pooled `DATABASE_URL` and direct connection URL (if
   the selected ORM/migration workflow needs one) as local and Vercel secrets.
