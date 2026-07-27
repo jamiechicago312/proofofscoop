@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "db:seed": "node scripts/seed.mjs"
   },
   "dependencies": {
     "@privy-io/react-auth": "^3.35.2",

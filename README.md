@@ -51,3 +51,9 @@ smart contracts, or production tax logic.
 
 See [plan.md](./plan.md) for the implementation order and [UserToDo.md](./UserToDo.md)
 for the external account setup required when deploying a fork.
+
+## Database migrations and seed data
+
+Run SQL migrations in numeric order using Neon’s SQL Editor, then seed the
+catalog with `npm run db:seed`. The seed command is idempotent: it updates the
+six stable shop slugs instead of creating duplicates.
