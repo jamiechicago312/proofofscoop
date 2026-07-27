@@ -1,4 +1,5 @@
 import { AuthControl } from "@/components/auth-control";
+import Link from "next/link";
 const layers = [
   ["Orange sherbet", "Bright, citrusy optimism", "orange"],
   ["Pistachio", "A little local color", "pistachio"],
@@ -22,7 +23,7 @@ export default function Home() {
           Browse neighborhood favorites. When you are ready to contribute, verify once and add your own review.
         </p>
         <div className="hero-actions">
-          <a className="button button-primary" href="#how-it-works">Explore the plan</a>
+          <Link className="button button-primary" href="/shops">Explore shops</Link>
           <a className="button button-secondary" href="https://github.com/jamiechicago312/proofofscoop">View on GitHub</a>
         </div>
       </section>
