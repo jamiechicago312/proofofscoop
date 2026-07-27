@@ -1,12 +1,5 @@
 import { AuthControl } from "@/components/auth-control";
 import Link from "next/link";
-const layers = [
-  ["Orange sherbet", "Bright, citrusy optimism", "orange"],
-  ["Pistachio", "A little local color", "pistachio"],
-  ["Palmer House", "Warm, welcoming cream", "palmer-house"],
-  ["Strawberry", "Reviews worth sharing", "strawberry"],
-  ["Chocolate", "The proof beneath it all", "chocolate"],
-] as const;
 
 export default function Home() {
   return (
@@ -24,23 +17,8 @@ export default function Home() {
         </p>
         <div className="hero-actions">
           <Link className="button button-primary" href="/shops">Explore shops</Link>
-          <a className="button button-secondary" href="https://github.com/jamiechicago312/proofofscoop">View on GitHub</a>
+          <a className="button github-button" href="https://github.com/jamiechicago312/proofofscoop">View on GitHub</a>
         </div>
-      </section>
-
-      <section className="layers" aria-labelledby="layers-title">
-        <div>
-          <p className="eyebrow">The Rainbow Cone palette</p>
-          <h2 id="layers-title">Five classic layers. One warm neighborhood guide.</h2>
-        </div>
-        <ol className="layer-list">
-          {layers.map(([name, description, token]) => (
-            <li className={`layer layer-${token}`} key={name}>
-              <span>{name}</span>
-              <small>{description}</small>
-            </li>
-          ))}
-        </ol>
       </section>
 
       <section className="how-it-works" id="how-it-works" aria-labelledby="how-title">
