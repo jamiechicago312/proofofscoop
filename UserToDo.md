@@ -19,9 +19,19 @@ on-chain items are pending.
   Vercel deployment URLs to the allowed-origin configuration. Share the app ID
   and server-side app secret through the deployment secret manager—never commit
   them to the repository.
-- [ ] **Database:** create a Postgres database (recommended: Neon or
-  Supabase), then add its pooled `DATABASE_URL` and direct connection URL (if
-  the selected ORM/migration workflow needs one) as local and Vercel secrets.
+- [ ] **Privy verification key:** copy the app's JWT verification JWK from the
+  Privy dashboard and set it as `PRIVY_JWT_VERIFICATION_KEY` locally and in
+  Vercel. This lets the server verify access-token signatures without trusting
+  a browser-provided identity.
+- [ ] **Neon database:** create a Neon project and database, then copy the
+  pooled connection string from Neon’s **Connect** panel into `.env.local` as
+  `DATABASE_URL`. Add the same value to Vercel’s Preview and Production
+  environment variables. Do not commit it.
+- [ ] **Create the schema:** run the checked-in migration once against the
+  Neon database. Either use Neon’s SQL Editor to run
+  `drizzle/0000_create_users.sql`, or run
+  `psql "$DATABASE_URL" -f drizzle/0000_create_users.sql` locally. Deploys do
+  not run database migrations automatically.
 - [ ] **Vercel:** create or connect a Vercel project, import your repository,
   and grant deployer access. Add the same database and Privy environment
   variables there.

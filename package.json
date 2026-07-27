@@ -16,7 +16,10 @@
     "@solana-program/system": "0.12.0",
     "@solana-program/token": "0.13.0",
     "@solana/kit": "6.10.0",
+    "drizzle-orm": "^0.45.2",
+    "jose": "^6.2.4",
     "next": "^16.2.12",
+    "postgres": "^3.4.9",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
