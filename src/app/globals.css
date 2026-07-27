@@ -93,6 +93,10 @@ footer { padding-block: 2rem; color: white; background: var(--rc-chocolate); fon
 .review strong { color: var(--rc-orange-sherbet); letter-spacing: 0.1em; }
 .empty-state { padding: 2rem; border: 2px dashed var(--rc-waffle-cone); border-radius: 1rem; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+.review-form { display: grid; gap: 0.75rem; max-width: 42rem; margin-top: 2rem; padding: 1.5rem; border-radius: 1rem; background: var(--rc-palmer-house); }
+.review-form label { display: grid; gap: 0.35rem; font-weight: 800; }
+.review-form textarea, .review-form select { width: 100%; padding: 0.7rem; border: 1px solid var(--rc-chocolate); border-radius: 0.5rem; font: inherit; }
+.review-form textarea { min-height: 8rem; }
 
 @media (max-width: 700px) {
   .layers, .steps { grid-template-columns: 1fr; }
