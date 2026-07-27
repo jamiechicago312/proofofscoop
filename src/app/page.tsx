@@ -1,3 +1,4 @@
+import { AuthControl } from "@/components/auth-control";
 const layers = [
   ["Orange sherbet", "Bright, citrusy optimism", "orange"],
   ["Pistachio", "A little local color", "pistachio"],
@@ -11,7 +12,7 @@ export default function Home() {
     <main>
       <nav aria-label="Primary navigation" className="nav">
         <a className="wordmark" href="#top">Proof of Scoop</a>
-        <a className="nav-link" href="#how-it-works">How it works</a>
+        <span className="nav-actions"><a className="nav-link" href="#how-it-works">How it works</a><AuthControl /></span>
       </nav>
 
       <section className="hero" id="top">
