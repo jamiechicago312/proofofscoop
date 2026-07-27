@@ -84,6 +84,7 @@ footer { padding-block: 2rem; color: white; background: var(--rc-chocolate); fon
 .account-card dd { margin: 0.4rem 0 0; overflow-wrap: anywhere; font-family: monospace; }
 .account-note { color: var(--ink-muted); line-height: 1.5; }
 .account-card .button-primary + .account-note { margin-top: 1.5rem; }
+.account-card .button-primary + p[aria-live] { margin-top: 1.25rem; }
 .directory { max-width: 76rem; margin: 0 auto; padding: clamp(2rem, 6vw, 5rem) var(--page-padding); }
 .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; margin-top: 3rem; }
 .shop-card, .review { display: block; padding: 1.4rem; border-radius: 1rem; background: white; box-shadow: 0 0.5rem 1.5rem rgb(61 35 20 / 10%); text-decoration: none; }
