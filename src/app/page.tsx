@@ -1,4 +1,5 @@
 import { AuthControl } from "@/components/auth-control";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
           <Link className="button button-primary" href="/shops">Explore shops</Link>
           <a className="button github-button" href="https://github.com/jamiechicago312/proofofscoop">View on GitHub</a>
         </div>
+        <Image className="hero-image" src="/bachir-202512.jpg" alt="A stacked ice cream cone with whipped cream" width={1200} height={1600} priority />
       </section>
 
       <section className="how-it-works" id="how-it-works" aria-labelledby="how-title">

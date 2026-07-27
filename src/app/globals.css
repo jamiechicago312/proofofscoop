@@ -50,6 +50,7 @@ h1 { max-width: 12ch; font-family: Georgia, serif; font-size: clamp(3.5rem, 9vw,
 h2 { max-width: 24ch; font-family: Georgia, serif; font-size: clamp(2.2rem, 5vw, 4.1rem); line-height: 1; letter-spacing: -0.05em; }
 .lede { max-width: 37rem; color: var(--ink-muted); font-size: clamp(1.1rem, 2vw, 1.35rem); line-height: 1.55; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 2rem; }
+.hero-image { display: block; width: min(100%, 28rem); height: 34rem; margin-top: 3rem; border-radius: 1.5rem; object-fit: cover; object-position: center 48%; box-shadow: 0 1rem 2rem rgb(61 35 20 / 18%); }
 .button { border-radius: 999px; padding: 0.8rem 1.15rem; font-weight: 800; text-decoration: none; }
 .button-primary { background: var(--rc-chocolate); color: white; }
 .button-secondary { border: 2px solid var(--rc-chocolate); }
