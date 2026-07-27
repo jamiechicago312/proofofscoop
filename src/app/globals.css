@@ -82,6 +82,17 @@ footer { padding-block: 2rem; color: white; background: var(--rc-chocolate); fon
 .account-card dt { font-weight: 800; }
 .account-card dd { margin: 0.4rem 0 0; overflow-wrap: anywhere; font-family: monospace; }
 .account-note { color: var(--ink-muted); line-height: 1.5; }
+.directory { max-width: 76rem; margin: 0 auto; padding: clamp(2rem, 6vw, 5rem) var(--page-padding); }
+.shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; margin-top: 3rem; }
+.shop-card, .review { display: block; padding: 1.4rem; border-radius: 1rem; background: white; box-shadow: 0 0.5rem 1.5rem rgb(61 35 20 / 10%); text-decoration: none; }
+.shop-card:hover { outline: 3px solid var(--rc-orange-sherbet); }
+.shop-card h2 { font-size: 1.6rem; }
+.shop-card p, .shop-card small { color: var(--ink-muted); line-height: 1.45; }
+.review-heading { margin-top: 4rem; }
+.review-list { display: grid; gap: 1rem; max-width: 45rem; }
+.review strong { color: var(--rc-orange-sherbet); letter-spacing: 0.1em; }
+.empty-state { padding: 2rem; border: 2px dashed var(--rc-waffle-cone); border-radius: 1rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
 
 @media (max-width: 700px) {
   .layers, .steps { grid-template-columns: 1fr; }
