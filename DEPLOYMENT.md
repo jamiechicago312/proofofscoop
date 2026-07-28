@@ -26,12 +26,17 @@ development and production when possible.
 | `PRIVY_JWT_VERIFICATION_KEY` | Server-only | Privy PEM public key or JSON JWK |
 | `DATABASE_URL` | Server-only | Neon pooled Postgres URL |
 | `BASE_RPC_URL` | Server-only | Optional Base mainnet RPC endpoint |
+| `NEXT_PUBLIC_BASE_RPC_URL` | Browser-safe | Optional browser RPC endpoint for balance reads |
 
 Enable “Return user data in an identity token” in Privy under User management
 → Authentication → Advanced. The signed identity token binds the authenticated
 Privy DID to its embedded wallet address for server-side transaction checks.
 Never commit `.env.local`, database URLs, Privy keys, or tokens. The
 `NEXT_PUBLIC_` prefix is intentional only for values that the browser needs.
+
+The browser balance widget tries `NEXT_PUBLIC_BASE_RPC_URL` first, then Base's
+standard and preconfirmation endpoints. Base documents its public endpoints as
+rate-limited, so a dedicated RPC endpoint is recommended for a hosted app.
 
 ## Database release
 
