@@ -6,10 +6,10 @@ the Web3 details behind a normal consumer experience.
 
 ## Current status
 
-This repository currently contains the Issue #1 foundation: a responsive
-landing page, the Rainbow Cone design system, local tooling, CI, and setup
-documentation. Authentication, database, shops, reviews, and verification are
-tracked in the linked GitHub issues and are not implemented yet.
+The POC currently supports public shop browsing, Privy sign-in, embedded-wallet
+display, server-side access-token verification, development-only mock
+verification, and verified-only review submission. Mock verification does not
+charge money, move USDC, or prove an on-chain payment.
 
 For the Issue #2 Privy account shell, set `NEXT_PUBLIC_PRIVY_APP_ID` in `.env.local`, enable email login and Ethereum embedded wallets in Privy, and add your local/deployed origins before testing sign-in.
 
@@ -52,8 +52,44 @@ smart contracts, or production tax logic.
 See [plan.md](./plan.md) for the implementation order and [UserToDo.md](./UserToDo.md)
 for the external account setup required when deploying a fork.
 
+## Vercel deployment
+
+The app uses standard Next.js deployment behavior and does not require a
+`vercel.json`. Connect the repository to a Vercel project, then add these
+variables in Vercel for both Preview and Production:
+
+- `NEXT_PUBLIC_APP_URL` — the exact deployed HTTPS origin for that environment.
+- `NEXT_PUBLIC_PRIVY_APP_ID` — safe to expose to the browser.
+- `PRIVY_JWT_VERIFICATION_KEY` — server-only PEM or JSON JWK.
+- `DATABASE_URL` — server-only pooled Neon connection string.
+
+Do not add `PRIVY_APP_SECRET` unless a future server-side Privy API integration
+needs it; the current app does not read it. Vercel automatically exposes only
+variables prefixed with `NEXT_PUBLIC_` to browser bundles.
+
+After setting variables, deploy or redeploy the project. In Privy, add the
+Preview URL and Production URL to the app's allowed origins. Preview URLs are
+deployment-specific, so add the stable Vercel project domain as well if it is
+used for review. Then test public browse, sign-in, account/wallet display,
+mock-verification behavior, and the verified review flow over HTTPS.
+
+Hosted verification is operator-dependent when Vercel Hobby team/project
+features or deployment access are unavailable. Run the local checks below and
+record any unverified hosted step in the issue or pull request.
+
 ## Database migrations and seed data
 
-Run SQL migrations in numeric order using Neon’s SQL Editor, then seed the
-catalog with `npm run db:seed`. The seed command is idempotent: it updates the
-six stable shop slugs instead of creating duplicates.
+With `DATABASE_URL` set in a local, non-committed `.env.local`, run the checked-
+in migration command once before the first deployment, then seed the catalog:
+
+```bash
+npm run db:migrate
+npm run db:seed
+```
+
+Migrations are applied in numeric filename order, each file in its own
+transaction. Deploys do not run migrations automatically. The seed command is
+idempotent: it updates the six stable shop slugs instead of creating
+duplicates.
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for the complete release checklist.

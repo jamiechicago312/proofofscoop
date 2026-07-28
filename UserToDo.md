@@ -27,14 +27,18 @@ on-chain items are pending.
   pooled connection string from Neon’s **Connect** panel into `.env.local` as
   `DATABASE_URL`. Add the same value to Vercel’s Preview and Production
   environment variables. Do not commit it.
-- [ ] **Create the schema:** run the checked-in migration once against the
-  Neon database. Either use Neon’s SQL Editor to run
-  `drizzle/0000_create_users.sql`, or run
-  `psql "$DATABASE_URL" -f drizzle/0000_create_users.sql` locally. Deploys do
-  not run database migrations automatically.
+- [ ] **Create the schema:** from the repository root, set `DATABASE_URL` in
+  your local uncommitted `.env.local`, then run `npm run db:migrate` followed by
+  `npm run db:seed`. This applies every checked-in migration in numeric order.
+  Deploys do not run database migrations automatically. Neon’s SQL Editor can
+  also run `drizzle/0000_create_users.sql` and `drizzle/0001_create_catalog.sql`
+  in that order.
 - [ ] **Vercel:** create or connect a Vercel project, import your repository,
   and grant deployer access. Add the same database and Privy environment
   variables there.
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for the environment matrix and hosted
+verification checklist.
 
 ## Needed only for the real USDC demonstration
 
