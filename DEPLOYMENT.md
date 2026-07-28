@@ -22,9 +22,14 @@ development and production when possible.
 | --- | --- | --- |
 | `NEXT_PUBLIC_APP_URL` | Browser-safe | Exact HTTPS origin for the environment |
 | `NEXT_PUBLIC_PRIVY_APP_ID` | Browser-safe | Privy app ID |
+| `NEXT_PUBLIC_VERIFICATION_RECIPIENT_ADDRESS` | Browser-safe | Base address receiving the $1 USDC payment |
 | `PRIVY_JWT_VERIFICATION_KEY` | Server-only | Privy PEM public key or JSON JWK |
 | `DATABASE_URL` | Server-only | Neon pooled Postgres URL |
+| `BASE_RPC_URL` | Server-only | Optional Base mainnet RPC endpoint |
 
+Enable “Return user data in an identity token” in Privy under User management
+→ Authentication → Advanced. The signed identity token binds the authenticated
+Privy DID to its embedded wallet address for server-side transaction checks.
 Never commit `.env.local`, database URLs, Privy keys, or tokens. The
 `NEXT_PUBLIC_` prefix is intentional only for values that the browser needs.
 
@@ -49,9 +54,11 @@ After redeploying, verify the following over HTTPS:
 1. Public shop listing and shop detail pages load.
 2. Privy sign-in succeeds and the account page shows the user and wallet.
 3. A non-verified user is blocked from submitting a review.
-4. Development mock verification is unavailable in Production and is labeled
+4. Send exactly 1 USDC on Base mainnet from the authenticated embedded wallet
+   and confirm the UI remains pending until the receipt is successful.
+5. Development mock verification is unavailable in Production and is labeled
    as non-payment in non-production environments.
-5. After verification in the supported environment, a review can be created
+6. After verification in the supported environment, a review can be created
    and appears on the shop page.
 
 Record the deployment URL, migration result, and any step not run due to

@@ -80,18 +80,22 @@ variables in Vercel for both Preview and Production:
 
 - `NEXT_PUBLIC_APP_URL` — the exact deployed HTTPS origin for that environment.
 - `NEXT_PUBLIC_PRIVY_APP_ID` — safe to expose to the browser.
+- `NEXT_PUBLIC_VERIFICATION_RECIPIENT_ADDRESS` — the public Base address that receives the $1 verification payment.
 - `PRIVY_JWT_VERIFICATION_KEY` — server-only PEM or JSON JWK.
 - `DATABASE_URL` — server-only pooled Neon connection string.
+- `BASE_RPC_URL` — optional server-only Base mainnet RPC endpoint.
 
 Do not add `PRIVY_APP_SECRET` unless a future server-side Privy API integration
 needs it; the current app does not read it. Vercel automatically exposes only
 variables prefixed with `NEXT_PUBLIC_` to browser bundles.
 
 After setting variables, deploy or redeploy the project. In Privy, add the
-Preview URL and Production URL to the app's allowed origins. Preview URLs are
-deployment-specific, so add the stable Vercel project domain as well if it is
-used for review. Then test public browse, sign-in, account/wallet display,
-mock-verification behavior, and the verified review flow over HTTPS.
+Preview URL and Production URL to the app's allowed origins and enable “Return
+user data in an identity token” under User management → Authentication →
+Advanced. Preview URLs are deployment-specific, so add the stable Vercel
+project domain as well if it is used for review. Then test public browse,
+sign-in, account/wallet display, the real Base verification flow, and the
+verified review flow over HTTPS.
 
 Hosted verification is operator-dependent when Vercel Hobby team/project
 features or deployment access are unavailable. Run the local checks below and
@@ -117,8 +121,9 @@ See [DEPLOYMENT.md](./DEPLOYMENT.md) for the complete release checklist.
 ## Limitations and deferred work
 
 - Mock verification is disabled in production and is not a payment proof.
-- Base balance reads are informational; real transaction confirmation is not
-  implemented yet.
+- Real verification requires a user-funded Base mainnet wallet, exactly 1 USDC,
+  Base ETH for gas, and a configured recipient address. Balance reads remain
+  informational.
 - Stripe Crypto Onramp is optional and not integrated; sandbox funds must not
   be described as real or spendable USDC.
 - Rewards, payouts, reputation, anti-Sybil controls, referrals, staking, and

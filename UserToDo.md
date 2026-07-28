@@ -23,6 +23,9 @@ on-chain items are pending.
   Privy dashboard and set it as `PRIVY_JWT_VERIFICATION_KEY` locally and in
   Vercel. This lets the server verify access-token signatures without trusting
   a browser-provided identity.
+- [ ] **Privy identity tokens:** enable “Return user data in an identity token”
+  under User management → Authentication → Advanced. The real Base flow uses
+  this signed token to bind the authenticated DID to its embedded wallet.
 - [ ] **Neon database:** create a Neon project and database, then copy the
   pooled connection string from Neon’s **Connect** panel into `.env.local` as
   `DATABASE_URL`. Add the same value to Vercel’s Preview and Production
@@ -35,7 +38,8 @@ on-chain items are pending.
   in that order.
 - [ ] **Vercel:** create or connect a Vercel project, import your repository,
   and grant deployer access. Add the same database and Privy environment
-  variables there.
+  variables there, plus `NEXT_PUBLIC_VERIFICATION_RECIPIENT_ADDRESS` set to
+  the address that should receive the $1 USDC verification payment.
 
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for the environment matrix and hosted
 verification checklist.
