@@ -28,7 +28,6 @@ export async function verifyPrivyAccessToken(token: string) {
     if (error instanceof AuthenticationError) throw error;
     console.error("Privy access-token verification failed", {
       name: error instanceof Error ? error.name : "UnknownError",
-      message: error instanceof Error ? error.message : "Unknown verification error",
     });
     throw new AuthenticationError("Invalid or expired Privy access token.");
   }
