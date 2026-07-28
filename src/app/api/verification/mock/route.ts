@@ -5,10 +5,11 @@ import { AuthenticationError, verifyPrivyAccessToken } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { users, verificationEvents } from "@/lib/schema";
 import { getOrCreateUser } from "@/lib/users";
+import { getBearerToken } from "@/lib/validation";
 
 export async function POST(request: NextRequest) {
   if (process.env.NODE_ENV === "production") return NextResponse.json({ error: "Mock verification is disabled in production." }, { status: 404 });
-  const token = request.headers.get("authorization")?.replace(/^Bearer\s+/i, "");
+  const token = getBearerToken(request.headers.get("authorization"));
   if (!token) return NextResponse.json({ error: "Authentication required." }, { status: 401 });
   try {
     const { privyUserId } = await verifyPrivyAccessToken(token);

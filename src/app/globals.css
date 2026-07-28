@@ -25,6 +25,8 @@ body {
 }
 
 a { color: inherit; }
+button, select, textarea { font: inherit; }
+button:focus-visible, a:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--rc-orange-sherbet); outline-offset: 3px; }
 
 .nav, .hero, .layers, .how-it-works, footer { padding-inline: var(--page-padding); }
 
@@ -102,6 +104,7 @@ footer { padding-block: 2rem; color: white; background: var(--rc-chocolate); fon
 .review-form label { display: grid; gap: 0.35rem; font-weight: 800; }
 .review-form textarea, .review-form select { width: 100%; padding: 0.7rem; border: 1px solid var(--rc-chocolate); border-radius: 0.5rem; font: inherit; }
 .review-form textarea { min-height: 8rem; }
+.review-form button:disabled { cursor: wait; opacity: 0.65; }
 
 @media (max-width: 700px) {
   .hero { grid-template-columns: 1fr; }
