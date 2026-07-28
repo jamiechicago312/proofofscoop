@@ -2,7 +2,7 @@ import { createPublicClient, decodeFunctionData, getAddress, http, isAddress, pa
 import { base } from "viem/chains";
 
 export const BASE_CHAIN_ID = 8453;
-export const BASE_USDC_ADDRESS = "0x833589fCD6EDb6E08f4c7C32D4f71b54bdA02913" as const;
+export const BASE_USDC_ADDRESS = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" as const;
 export const VERIFICATION_AMOUNT = BigInt(1_000_000);
 const transferAbi = parseAbi(["function transfer(address to, uint256 amount) returns (bool)", "event Transfer(address indexed from, address indexed to, uint256 value)"]);
 

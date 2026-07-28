@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { createPublicClient, fallback, formatUnits, http, isAddress, parseAbi } from "viem";
 import { base } from "viem/chains";
 
-const usdc = "0x833589fCD6EDb6E08f4c7C32D4f71b54bdA02913" as const;
+const usdc = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" as const;
 const erc20 = parseAbi(["function balanceOf(address) view returns (uint256)"]);
 
 export function WalletBalance({ address }: { address?: string }) {
