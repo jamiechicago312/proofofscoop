@@ -27,7 +27,7 @@
   <rect x="100" y="445" width="330" height="130" class="box" fill="#fff" stroke="#c9b5de"/>
   <text x="130" y="490" class="label">Client-only Base reads</text>
   <text x="130" y="520" class="body">USDC and ETH balance display</text>
-  <text x="130" y="545" class="body">Informational; not payment proof</text>
+  <text x="130" y="545" class="body">Informational; payment is server-checked</text>
 
   <rect x="535" y="135" width="420" height="535" rx="22" fill="#f0f4f1" stroke="#c6d5ca"/>
   <text x="565" y="175" class="zone">TRUSTED SERVER / VERCEL</text>
@@ -38,7 +38,7 @@
   <text x="615" y="440" class="label">Server security boundary</text>
   <text x="615" y="470" class="body">Verify Privy JWT signature, issuer</text>
   <text x="615" y="495" class="body">and audience; enforce verified status</text>
-  <text x="615" y="520" class="body">Mock verification only outside production</text>
+  <text x="615" y="520" class="body">Validate Base transfer before verification</text>
 
   <rect x="1010" y="135" width="340" height="535" rx="22" fill="#f2f0f7" stroke="#cbc3dc"/>
   <text x="1040" y="175" class="zone">EXTERNAL SERVICES</text>
