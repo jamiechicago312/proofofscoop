@@ -4,7 +4,7 @@ import { getIdentityToken, getAccessToken, useIdentityToken, usePrivy, useSendTr
 import { encodeFunctionData } from "viem";
 import { useState } from "react";
 
-const usdc = "0x833589fCD6EDb6E08f4c7C32D4f71b54bdA02913" as const;
+const usdc = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" as const;
 const recipient = process.env.NEXT_PUBLIC_VERIFICATION_RECIPIENT_ADDRESS;
 const transferAbi = [{ type: "function", name: "transfer", stateMutability: "nonpayable", inputs: [{ name: "to", type: "address" }, { name: "amount", type: "uint256" }], outputs: [{ name: "", type: "bool" }] }] as const;
 
