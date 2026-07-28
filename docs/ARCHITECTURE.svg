@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">Proof of Scoop architecture</title>
+  <desc id="desc">A browser calls the Next.js application. The application verifies Privy tokens on the server, stores users, shops, reviews and verification events in Postgres, and reads Base balances. Stripe is an optional future provider.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#5b5368"/>
+    </marker>
+    <style>
+      .title { font: 700 30px system-ui, sans-serif; fill: #211b2d; }
+      .label { font: 700 18px system-ui, sans-serif; fill: #211b2d; }
+      .body { font: 15px system-ui, sans-serif; fill: #5b5368; }
+      .zone { font: 700 14px system-ui, sans-serif; letter-spacing: 1.5px; fill: #70677b; }
+      .edge { fill: none; stroke: #5b5368; stroke-width: 2.5; marker-end: url(#arrow); }
+      .box { stroke-width: 2; rx: 16; }
+    </style>
+  </defs>
+  <rect width="1400" height="760" fill="#fffaf4"/>
+  <text x="70" y="70" class="title">Proof of Scoop — POC architecture</text>
+  <text x="70" y="100" class="body">Trust boundaries stay on the server; browser state never grants verification or review permissions.</text>
+
+  <rect x="50" y="135" width="430" height="535" rx="22" fill="#f4eee7" stroke="#d9cec1"/>
+  <text x="80" y="175" class="zone">PUBLIC / BROWSER</text>
+  <rect x="100" y="235" width="330" height="130" class="box" fill="#fff" stroke="#c9b5de"/>
+  <text x="130" y="280" class="label">Browser + Next.js UI</text>
+  <text x="130" y="310" class="body">Browse shops and reviews</text>
+  <text x="130" y="335" class="body">Privy sign-in and wallet display</text>
+  <rect x="100" y="445" width="330" height="130" class="box" fill="#fff" stroke="#c9b5de"/>
+  <text x="130" y="490" class="label">Client-only Base reads</text>
+  <text x="130" y="520" class="body">USDC and ETH balance display</text>
+  <text x="130" y="545" class="body">Informational; not payment proof</text>
+
+  <rect x="535" y="135" width="420" height="535" rx="22" fill="#f0f4f1" stroke="#c6d5ca"/>
+  <text x="565" y="175" class="zone">TRUSTED SERVER / VERCEL</text>
+  <rect x="585" y="225" width="320" height="115" class="box" fill="#fff" stroke="#91b39b"/>
+  <text x="615" y="270" class="label">Next.js route handlers</text>
+  <text x="615" y="300" class="body">Public catalog + review APIs</text>
+  <rect x="585" y="395" width="320" height="150" class="box" fill="#fff" stroke="#91b39b"/>
+  <text x="615" y="440" class="label">Server security boundary</text>
+  <text x="615" y="470" class="body">Verify Privy JWT signature, issuer</text>
+  <text x="615" y="495" class="body">and audience; enforce verified status</text>
+  <text x="615" y="520" class="body">Mock verification only outside production</text>
+
+  <rect x="1010" y="135" width="340" height="535" rx="22" fill="#f2f0f7" stroke="#cbc3dc"/>
+  <text x="1040" y="175" class="zone">EXTERNAL SERVICES</text>
+  <rect x="1050" y="220" width="260" height="105" class="box" fill="#fff" stroke="#a99ac4"/>
+  <text x="1080" y="263" class="label">Privy</text>
+  <text x="1080" y="293" class="body">Identity + embedded wallet</text>
+  <rect x="1050" y="370" width="260" height="105" class="box" fill="#fff" stroke="#a99ac4"/>
+  <text x="1080" y="413" class="label">Base mainnet</text>
+  <text x="1080" y="443" class="body">USDC / ETH balance reads</text>
+  <rect x="1050" y="520" width="260" height="105" class="box" fill="#fff" stroke="#c8bfcf" stroke-dasharray="7 6"/>
+  <text x="1080" y="563" class="label">Stripe (optional)</text>
+  <text x="1080" y="593" class="body">Sandbox only; not implemented</text>
+
+  <rect x="610" y="585" width="270" height="58" class="box" fill="#fff" stroke="#91b39b"/>
+  <text x="640" y="620" class="label">Neon Postgres</text>
+  <path d="M430 300 H585" class="edge"/>
+  <path d="M430 510 H585" class="edge"/>
+  <path d="M905 275 H1050" class="edge"/>
+  <path d="M905 455 H1050" class="edge"/>
+  <path d="M745 545 V585" class="edge"/>
+  <path d="M1050 572 H955 V500 H905" class="edge" stroke-dasharray="7 6"/>
+  <text x="460" y="287" class="body">HTTPS requests</text>
+  <text x="945" y="262" class="body">JWT / wallet</text>
+  <text x="933" y="442" class="body">read-only RPC</text>
+  <text x="915" y="490" class="body">future webhook</text>
+</svg>

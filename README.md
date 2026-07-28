@@ -52,6 +52,26 @@ smart contracts, or production tax logic.
 See [plan.md](./plan.md) for the implementation order and [UserToDo.md](./UserToDo.md)
 for the external account setup required when deploying a fork.
 
+## Routes and data model
+
+| Route | Purpose | Access |
+| --- | --- | --- |
+| `/` | Landing page | Public |
+| `/shops` | Seeded shop directory | Public |
+| `/shops/[slug]` | Shop details, reviews, and review form | Public reads; verified users write |
+| `/account` | Privy identity, embedded wallet, and balances | Sign-in for account data |
+| `/verify` | Development mock verification | Non-production only |
+
+The database stores `users`, `shops`, `reviews`, and `verification_events`.
+Privy DIDs identify application users; wallet addresses are attributes. API
+route handlers verify Privy access-token signatures server-side and enforce
+verification status before creating reviews. Browser state, wallet addresses,
+and client-provided verification claims are never authorization boundaries.
+
+![Proof of Scoop architecture](./docs/ARCHITECTURE.svg)
+
+Follow [docs/DEMO.md](./docs/DEMO.md) for the repeatable browser walkthrough.
+
 ## Vercel deployment
 
 The app uses standard Next.js deployment behavior and does not require a
@@ -93,3 +113,13 @@ idempotent: it updates the six stable shop slugs instead of creating
 duplicates.
 
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for the complete release checklist.
+
+## Limitations and deferred work
+
+- Mock verification is disabled in production and is not a payment proof.
+- Base balance reads are informational; real transaction confirmation is not
+  implemented yet.
+- Stripe Crypto Onramp is optional and not integrated; sandbox funds must not
+  be described as real or spendable USDC.
+- Rewards, payouts, reputation, anti-Sybil controls, referrals, staking, and
+  smart contracts are outside this POC.
