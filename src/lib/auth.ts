@@ -10,7 +10,7 @@ export async function verifyPrivyAccessToken(token: string) {
     // Privy commonly displays a PEM public key. Keep JSON JWK support for
     // existing deployments and local development configurations.
     const verificationKey = rawKey.trim().startsWith("-----BEGIN")
-      ? await importSPKI(rawKey.trim(), "EdDSA")
+      ? await importSPKI(rawKey.trim().replace(/\\n/g, "\n"), "ES256")
       : await (async () => {
           let key: JWK;
           try { key = JSON.parse(rawKey) as JWK; } catch { throw new Error("PRIVY_JWT_VERIFICATION_KEY must be a PEM public key or JSON JWK."); }
