@@ -80,7 +80,7 @@ h2 { max-width: 24ch; font-family: Georgia, serif; font-size: clamp(2.2rem, 5vw,
 .steps p { margin-bottom: 0; line-height: 1.5; }
 footer { padding-block: 2rem; color: white; background: var(--rc-chocolate); font-size: 0.95rem; }
 .account-page { min-height: 100vh; }
-.account-card { max-width: 48rem; margin: clamp(2rem, 8vw, 7rem) auto; padding: clamp(1.5rem, 5vw, 3rem); border-radius: 1.5rem; background: white; box-shadow: 0 1rem 3rem rgb(61 35 20 / 12%); }
+.account-card { display: grid; gap: 1rem; max-width: 48rem; margin: clamp(2rem, 8vw, 7rem) auto; padding: clamp(1.5rem, 5vw, 3rem); border-radius: 1.5rem; background: white; box-shadow: 0 1rem 3rem rgb(61 35 20 / 12%); }
 .account-card h1 { font-size: clamp(2.5rem, 7vw, 5rem); }
 .account-card dl { display: grid; gap: 1rem; margin: 2rem 0; }
 .account-card dl div { padding: 1rem; border-radius: 0.75rem; background: var(--rc-palmer-house); }
@@ -89,6 +89,8 @@ footer { padding-block: 2rem; color: white; background: var(--rc-chocolate); fon
 .account-note { color: var(--ink-muted); line-height: 1.5; }
 .account-card .button-primary + .account-note { margin-top: 1.5rem; }
 .account-card .button-primary + p[aria-live] { margin-top: 1.25rem; }
+.account-card label { margin-top: 0.75rem; font-weight: 800; }
+.account-card input { width: 100%; padding: 0.8rem; border: 1px solid var(--rc-chocolate); border-radius: 0.5rem; font: inherit; }
 .directory { max-width: 76rem; margin: 0 auto; padding: clamp(2rem, 6vw, 5rem) var(--page-padding); }
 .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; margin-top: 3rem; }
 .shop-card, .review { display: block; padding: 1.4rem; border-radius: 1rem; background: white; box-shadow: 0 0.5rem 1.5rem rgb(61 35 20 / 10%); text-decoration: none; }

@@ -1,12 +1,14 @@
 "use client";
 
 import { getIdentityToken, getAccessToken, useIdentityToken, usePrivy, useSendTransaction } from "@privy-io/react-auth";
-import { encodeFunctionData } from "viem";
+import { createPublicClient, encodeFunctionData, fallback, http, parseAbi } from "viem";
+import { base } from "viem/chains";
 import { useState } from "react";
 
 const usdc = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" as const;
 const recipient = process.env.NEXT_PUBLIC_VERIFICATION_RECIPIENT_ADDRESS;
 const transferAbi = [{ type: "function", name: "transfer", stateMutability: "nonpayable", inputs: [{ name: "to", type: "address" }, { name: "amount", type: "uint256" }], outputs: [{ name: "", type: "bool" }] }] as const;
+const transferEvent = parseAbi(["event Transfer(address indexed from, address indexed to, uint256 value)"])[0];
 
 type VerificationResponse = { verificationStatus?: "pending" | "confirmed" | "failed"; error?: string; transactionHash?: string };
 
@@ -54,8 +56,8 @@ export function BaseVerification() {
     } catch (error) { setStatus("failed"); setMessage(error instanceof Error ? error.message : "The payment could not be sent."); }
   }
 
-  async function recover() {
-    const hash = hashInput.trim();
+  async function recover(hashValue = hashInput.trim()) {
+    const hash = hashValue;
     if (!/^0x[0-9a-fA-F]{64}$/.test(hash)) { setStatus("failed"); setMessage("Paste a valid Base transaction hash."); return; }
     setStatus("pending"); setMessage("Checking the existing Base transaction…");
     try {
@@ -66,5 +68,28 @@ export function BaseVerification() {
     } catch (error) { setStatus("failed"); setMessage(error instanceof Error ? error.message : "Unable to check the transaction."); }
   }
 
-  return <section className="account-card"><p className="eyebrow">Base mainnet</p><h1>Verify with $1 USDC</h1><p>Send exactly 1 USDC from your authenticated Privy wallet to the configured verification address. The server confirms the Base receipt before unlocking reviews.</p><p className="account-note">This is a real mainnet payment. Check the recipient and network before approving.</p><button className="button button-primary" onClick={verify} disabled={status === "sending" || status === "pending"}>{status === "sending" ? "Waiting for approval…" : status === "pending" ? "Waiting for confirmation…" : "Send $1 USDC to verify"}</button><label htmlFor="verification-tx">Already paid? Check your transaction hash</label><input id="verification-tx" value={hashInput} onChange={(event) => setHashInput(event.target.value)} placeholder="0x…" inputMode="text" /><button className="button button-secondary" onClick={recover} disabled={status === "sending" || status === "pending"}>Check existing payment</button><p aria-live="polite">{message}</p></section>;
+  async function findLatestPayment() {
+    setStatus("pending"); setMessage("Looking for your latest $1 USDC payment on Base…");
+    try {
+      const rpcUrls = [process.env.NEXT_PUBLIC_BASE_RPC_URL, "https://mainnet.base.org", "https://mainnet-preconf.base.org"]
+        .filter((url, index, urls): url is string => Boolean(url) && urls.indexOf(url) === index);
+      const client = createPublicClient({ chain: base, transport: fallback(rpcUrls.map((url) => http(url, { timeout: 8_000 }))) });
+      const latest = await client.getBlockNumber();
+      for (let chunk = 0; chunk < 10; chunk += 1) {
+        const toBlock = latest - BigInt(chunk * 10_000);
+        const fromBlock = toBlock > BigInt(9_999) ? toBlock - BigInt(9_999) : BigInt(0);
+        const logs = await client.getLogs({ address: usdc, event: transferEvent, args: { from: walletAddress as `0x${string}`, to: recipient as `0x${string}` }, fromBlock, toBlock });
+        const match = logs.filter((log) => log.args.value === BigInt(1_000_000)).sort((a, b) => Number(b.blockNumber - a.blockNumber))[0];
+        if (match) {
+          setHashInput(match.transactionHash);
+          window.localStorage.setItem("proof-of-scoop:verification-tx", match.transactionHash);
+          await recover(match.transactionHash);
+          return;
+        }
+      }
+      setStatus("failed"); setMessage("No matching $1 USDC payment was found in the recent Base history.");
+    } catch (error) { setStatus("failed"); setMessage(error instanceof Error ? error.message : "Unable to search Base transaction history."); }
+  }
+
+  return <section className="account-card"><p className="eyebrow">Base mainnet</p><h1>Verify with $1 USDC</h1><p>Send exactly 1 USDC from your authenticated Privy wallet to the configured verification address. The server confirms the Base receipt before unlocking reviews.</p><p className="account-note">This is a real mainnet payment. Check the recipient and network before approving.</p><button className="button button-primary" onClick={verify} disabled={status === "sending" || status === "pending"}>{status === "sending" ? "Waiting for approval…" : status === "pending" ? "Waiting for confirmation…" : "Send $1 USDC to verify"}</button><button className="button button-secondary" onClick={findLatestPayment} disabled={status === "sending" || status === "pending"}>Find latest $1 USDC payment</button><label htmlFor="verification-tx">Already paid? Transaction hash (optional)</label><input id="verification-tx" value={hashInput} onChange={(event) => setHashInput(event.target.value)} placeholder="0x…" inputMode="text" /><button className="button button-secondary" onClick={() => recover()} disabled={status === "sending" || status === "pending"}>Check existing payment</button><p aria-live="polite">{message}</p></section>;
 }
