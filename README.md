@@ -4,6 +4,8 @@ Proof of Scoop is a small consumer ice-cream directory. Anyone can browse and
 read reviews; verified contributors can submit one. The POC deliberately keeps
 the Web3 details behind a normal consumer experience.
 
+Demo walkthrough available here: https://www.youtube.com/watch?v=ICM6faXX10g
+
 ## Current status
 
 The POC currently supports public shop browsing, Privy sign-in, embedded-wallet
