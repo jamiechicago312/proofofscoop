@@ -29,6 +29,8 @@ export function BaseVerification() {
   async function checkTransaction(hash: `0x${string}`, method: "POST" | "GET") {
     const token = await getAccessToken();
     const idToken = identityToken ?? await getIdentityToken();
+    if (!token) throw new Error("Your Privy session is missing or expired. Sign in again and retry.");
+    if (!idToken) throw new Error("Privy identity token is unavailable. Enable user data in Privy identity tokens, then refresh and retry.");
     const response = await fetch(method === "POST" ? "/api/verification/base" : `/api/verification/base?transactionHash=${hash}`, {
       method, headers: { authorization: `Bearer ${token ?? ""}`, "privy-id-token": idToken ?? "", ...(method === "POST" ? { "content-type": "application/json" } : {}) },
       ...(method === "POST" ? { body: JSON.stringify({ transactionHash: hash }) } : {}),

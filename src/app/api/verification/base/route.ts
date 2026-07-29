@@ -14,7 +14,8 @@ function transactionHash(value: unknown): `0x${string}` | null {
 async function authenticate(request: NextRequest) {
   const accessToken = getBearerToken(request.headers.get("authorization"));
   const identityToken = request.headers.get("privy-id-token");
-  if (!accessToken || !identityToken) throw new AuthenticationError("Authentication required.");
+  if (!accessToken) throw new AuthenticationError("Your Privy session is missing or expired. Sign in again and retry.");
+  if (!identityToken) throw new AuthenticationError("Privy identity token is unavailable. Enable user data in Privy identity tokens, then refresh and retry.");
   const access = await verifyPrivyAccessToken(accessToken);
   const identity = await verifyPrivyIdentityToken(identityToken);
   if (access.privyUserId !== identity.privyUserId) throw new AuthenticationError("Authentication identities do not match.");
